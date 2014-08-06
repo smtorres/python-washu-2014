@@ -2,7 +2,7 @@ class Bob():
 	def __init__(self, ask):
 		self.ask = ask
 
-	def say(self):
+	def say(self=""):
 		ask_caps= self.ask.upper()
 		if "?" in self.ask:
 			return "Sure"
