@@ -37,6 +37,7 @@ class Clock():
 		
 	def _eq_ (self, other):
 		time = self.hours*60 + self.minutes2
+		print "A __eq__ called: %r == %r ?" % (self, other)
 		return time==other
 		
 		
@@ -49,6 +50,6 @@ print clock3
 
 clock4 = Clock.at(15, 37)
 clock5 = Clock.at(15, 37)
-print clock4==clock5
+clock4==clock5
 print clock4
 print clock5

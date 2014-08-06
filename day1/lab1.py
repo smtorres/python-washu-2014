@@ -40,6 +40,12 @@ def int_to_base(num, base):
 def base_to_int(string, base):
   """take a string-formatted number and its base and return the base-10 integer"""
   if string=="0" or base <= 0 : return 0 
+  num = list(string)
+  for i in range(0,
+  for i in num:
+  	num[i] = int(i)
+  	
+  num = int(string)
   result = 0 
   return result 
 
