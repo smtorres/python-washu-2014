@@ -5,13 +5,15 @@ class School():
 		self.school_name = school_name
 		self.db = {}
 
-
+		# Function that adds values and keys to a dictionary. Keys are school grades and each can take as value the name of a kid belonging to that grade.
+		# It returns a dictionary with the name of the keys
 	def add(self, name, grade):
 		if grade in self.db:
 			self.db[grade].add(name)
 		else:
 			self.db[grade] = {name}
 
+		# Function that takes as input Grade and delivers the names of the kids that belong to that group.
 	def grade(self, grade):
 		if grade not in self.db.keys():
 			return None
@@ -19,36 +21,23 @@ class School():
 			return self.db.get(grade)
 		print self.db.keys
 
+		# Function that sorts and converts the values of the dictionary from sets to tuples.
 	def sort(self):
 		new_dic = self.db
-		new_dic = OrderedDict(sorted(self.db(), key=lambda x: x[1]))
+		for i in range(0, len(new_dic)):
+				Key = new_dic.keys()[i]
+				Value = new_dic.values()[i]
+				Value = list(Value)
+				Value = tuple(Value)
+				new_dic[Key] = Value 
+				print new_dic.values
+		return new_dic
 
 
 
-    #def test_sort_school(self):
-     #   self.school.add("Jennifer", 4)
-      #  self.school.add("Kareem", 6)
-       # self.school.add("Christopher", 4)
-        #self.school.add("Kyle", 3)
-        #sorted_students = {
-         #   3: ("Kyle",),
-          #  4: ("Christopher", "Jennifer",),
-           # 6: ("Kareem",)
-       # }
-        #self.assertEqual(sorted_students, self.school.sort())
 
-school = School("RANDOM")
-school.add("James", 2)
-school.add("Blair", 2)
-school.add("Paul", 2)
-school.add("Maria", 1)
-school.add("Andy", 3)
-test = school.db
-print len(test)
-print test.keys()
-x = test.values()
-y = x[1] 
-print y.sorted()
+
+
 
 
 
