@@ -25,6 +25,7 @@ print square
 print len(square)
 
 # How many edges?
+def count_edges(G)
 print sum([len(square[node]) for node in square.keys()])/2 
 
 # Social Network
