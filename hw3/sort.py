@@ -42,7 +42,7 @@ def timeTest():
 	sample = []
 	BubbleTime = []
 	MinSortTime = []
-	for len_vector in range(2,1000):
+	for len_vector in range(2,100):
 		n = randrange(1,1234567)
 		seed((len_vector * n))
 		numbersBubble = [randrange(-1000,1000) for i in xrange(len_vector)]
@@ -63,6 +63,9 @@ MinSort_series = graph[2]
 
 
 # Plots
-plt.plot(length_vector, Bubble_series, 'r--', length_vector, MinSort_series, 'b--')
-plt.axis([0, 1000, 0, max(Bubble_series)])
-plt.show()
+plt.plot(length_vector, Bubble_series, 'r--', label="Bubble")
+plt.plot(length_vector, MinSort_series, 'b--', label="MinSort")
+plt.legend(loc=2)
+plt.axis([0, 100, 0, max(Bubble_series)])
+#plt.show()
+plt.savefig('hw3_mt.png')
