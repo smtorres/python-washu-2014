@@ -1,5 +1,17 @@
+#!/usr/bin/env
+import timeit
+from random import *
+#import matplotlib.pyplot as plt
 
-def Bubble(vector_numbers):
+def measureTime(a,x):
+    start = timeit.time.clock() 
+    a(x)
+    elapsed = timeit.time.clock()
+    elapsed = elapsed - start
+    return elapsed
+
+
+def MinSort(vector_numbers):
 	start = 0
 	for j in range(len(vector_numbers)):
 		mini = min(vector_numbers[j:len(vector_numbers)])
@@ -11,7 +23,7 @@ def Bubble(vector_numbers):
 	return vector_numbers
 
 
-def test_sort(x):
+def Bubble(x):
 	n = range(len(x))
 	n_rev = n[::-1]
 	n_rev = n_rev[:-1]
@@ -27,6 +39,41 @@ def test_sort(x):
 			pass
 	return x
 
+def timeTest():
+	sample = []
+	BubbleTime = []
+	MinSortTime = []
+	for len_vector in range(2,5):
+		n = randrange(1,1234567)
+		seed((len_vector * n))
+		numbersBubble = [randrange(-1000,1000) for i in xrange(len_vector)]
+		seed((len_vector * n))
+		numbersMinSort = [randrange(-1000,1000) for i in xrange(len_vector)]
+		sample.append(len_vector)
+		BubbleTime.append(measureTime(Bubble, numbersBubble)) 
+		MinSortTime.append(measureTime(MinSort, numbersMinSort))
+	return [sample, BubbleTime, MinSortTime]
+
+graph = timeTest()
+length_vector = graph[0]
+Bubble_series = graph[1]
+MinSort_series = graph[2]
+print graph
+print length_vector
+print Bubble_series
+print MinSort_series
+
+# red dashes, blue squares and green triangles
+#plt.plot(t, t, 'r--', t, t**2, 'bs', t, t**3, 'g^')
+#plt.show()
+	 
+
+
+	
+
+
 x = [1,4,2,8,7,6,4,9]
-print Bubble(x)
-print test_sort(x)
+print measureTime(Bubble, x)
+x = [1,4,2,8,7,6,4,9]
+print measureTime(MinSort, x)
+time_test = timeTest()
