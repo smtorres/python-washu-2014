@@ -1,4 +1,3 @@
-#!/usr/bin/env
 import timeit
 from random import *
 import matplotlib.pyplot as plt
@@ -43,7 +42,7 @@ def timeTest():
 	sample = []
 	BubbleTime = []
 	MinSortTime = []
-	for len_vector in range(2,5):
+	for len_vector in range(2,1000):
 		n = randrange(1,1234567)
 		seed((len_vector * n))
 		numbersBubble = [randrange(-1000,1000) for i in xrange(len_vector)]
@@ -55,10 +54,6 @@ def timeTest():
 	return [sample, BubbleTime, MinSortTime]
 
 
-x = [1,4,2,8,7,6,4,9]
-print measureTime(Bubble, x)
-x = [1,4,2,8,7,6,4,9]
-print measureTime(MinSort, x)
 time_test = timeTest()
 
 graph = timeTest()
@@ -68,5 +63,6 @@ MinSort_series = graph[2]
 
 
 # Plots
-plt.plot(length_vector, Bubble_series, 'r--', length_vector, MinSort_series, 'bs')
+plt.plot(length_vector, Bubble_series, 'r--', length_vector, MinSort_series, 'b--')
+plt.axis([0, 1000, 0, max(Bubble_series)])
 plt.show()
