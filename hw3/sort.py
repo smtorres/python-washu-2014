@@ -1,7 +1,7 @@
 #!/usr/bin/env
 import timeit
 from random import *
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 def measureTime(a,x):
     start = timeit.time.clock() 
@@ -54,26 +54,19 @@ def timeTest():
 		MinSortTime.append(measureTime(MinSort, numbersMinSort))
 	return [sample, BubbleTime, MinSortTime]
 
-graph = timeTest()
-length_vector = graph[0]
-Bubble_series = graph[1]
-MinSort_series = graph[2]
-print graph
-print length_vector
-print Bubble_series
-print MinSort_series
-
-# red dashes, blue squares and green triangles
-#plt.plot(t, t, 'r--', t, t**2, 'bs', t, t**3, 'g^')
-#plt.show()
-	 
-
-
-	
-
 
 x = [1,4,2,8,7,6,4,9]
 print measureTime(Bubble, x)
 x = [1,4,2,8,7,6,4,9]
 print measureTime(MinSort, x)
 time_test = timeTest()
+
+graph = timeTest()
+length_vector = graph[0]
+Bubble_series = graph[1]
+MinSort_series = graph[2]
+
+
+# Plots
+plt.plot(length_vector, Bubble_series, 'r--', length_vector, MinSort_series, 'bs')
+plt.show()
