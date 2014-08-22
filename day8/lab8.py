@@ -1,11 +1,17 @@
-engine = sqlalchemy.create_engine('sqlite:///geog.db', echo=False)
+import sqlalchemy
+
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String, ForeignKey, and_, or_
+from sqlalchemy.sql.functions import count, sum
+from sqlalchemy.orm import relationship, backref, sessionmaker
+
+engine = sqlalchemy.create_engine('sqlite:////Users/michelletorres/geog.db', echo=False)
 
 Base = declarative_base() 
 
 # Schemas
 class Region(Base):
   __tablename__ = 'regions'
-
   id = Column(Integer, primary_key=True)
   name = Column(String)
   departments = relationship("Department")
@@ -14,7 +20,7 @@ class Region(Base):
     self.name = name 
 
   def __repr__(self):
-    return "<Region('%s')>" % self.id 
+    return "<Region('%s')>" % self.id
 
 class Department(Base):
   __tablename__ = 'departments'
@@ -97,6 +103,20 @@ session.add_all([dept1, dept2, dept3, dept4])
 
 # TODO: Create towns, nested in departments
 
+a = Town('A', 110000)
+dept1.towns.append(a)
+b = Town('B', 80000)
+dept3.towns.append(b)
+c = Town('C', 300000)
+dept3.towns.append(c)
+d = Town('D', 50000)
+dept2.towns.append(d)
+e = Town('E', 113000)
+dept2.towns.append(e)
+f = Town('F', 70000)
+dept1.towns.append(f)
+
+
 session.add_all([a,b,c,d,e,f])
 
 ae = Distance(50)
@@ -140,11 +160,19 @@ session.add_all([ae, af, bc, bd, cb, db, de, ea, eb, ed, ef, fa])
 session.commit()
 
 # Some example querying 
-for town in session.query(Town).order_by(Town.id):
-  print town.name, town.population
+#for town in session.query(Town).order_by(Town.id):
+ # print town.name, town.population
 
 # TODO: 
 # 1. Display, by department, the cities having more than 100000 inhabitants.
+#for town in session.query(Town).filter(Town.population > 100000).order_by(Town.dept_id):
+ # print town.name, town.dept_id, town.population
+
 # 2. Display the list of all the one-way connections between two cities for which the population of one of the 2 cities is lower than 80000 inhabitants. 
+for dist, town in session.query(Distance, Town).filter(Town.population < 80000).filter(or_(Distance.townarrive == Town.name, Distance.towndepart == Town.name)).order_by(Distance.distance):
+  print dist, town.population
+
 # 3. Display the number of inhabitants per department (bonus: do it per region as well). 
+for dpt in session.query():
+  print town.name, town.dept_id, town.population
 # hint: use func.sum

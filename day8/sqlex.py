@@ -8,8 +8,10 @@ from sqlalchemy.orm import relationship, backref, sessionmaker
 #Some info about sqlalchemy
 print sqlalchemy.__version__
 
+
 #Connect to the local database, can use :memory: to just try it out in memory
-engine = sqlalchemy.create_engine('sqlite:////Users/mcdickenson/inclass.db', echo=True)
+engine = sqlalchemy.create_engine('sqlite:////Users/michelletorres/inclass.db', echo=True)
+#engine = sqlalchemy.create_engine('.memory')
 
 Base = declarative_base() 
 
@@ -71,7 +73,7 @@ session.add_all([
 ])
 
 #Persist all of this information
-session.commit()
+#session.commit()
 str(mason.id)
 
 #Some querying
@@ -115,7 +117,6 @@ players[1].team = duke
 mason.team.players
 
 str(duke.id)
-
 #Lets load the two things together
 for player, team in session.query(Player, Team).filter(Player.name == "Mason Plumlee").filter(Team.name == "Duke").order_by(Player.number):
   print player.number, player.name, team.name
@@ -137,4 +138,4 @@ other_plumlee = players[4]
 other_plumlee.name = "Marshall Plumlee"
 session.dirty
 session.commit()
-
+''
